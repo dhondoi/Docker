@@ -1,1 +1,4 @@
-docker image pull
+```bash
+docker image pull <nama-image>:<tag>
+
+```
