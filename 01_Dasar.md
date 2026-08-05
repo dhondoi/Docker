@@ -4,7 +4,7 @@
 - cek apakah sudah terinstal dengan perintah
   ```cmd
   docker version
-  ```
+  ```  
 ---
 # Docker Registry
 - tempat menyimpan Docker Image
@@ -61,7 +61,6 @@ docker container stop <namacontainer>
 ```bash
 docker container rm <nama-container>
 ```
----
 # Docker Container Log
 - Untuk melihat log aplikasi di container kita, kita bisa menggunakan perintah
 ```bash
@@ -111,6 +110,7 @@ docker container create --name <containername> --publish <porthost>:<portcontain
 ```bash
 docker container create --name <namacontainer> --publish <port-host>:<port-container> --cpus <amountcpuusage> --memory <amountmemoryusage><b/k/m/g> --mount "type=<bind/mount/volume>,source=<folder>,destination=<folder>,readonly" <image>:<tag>
 ```
+---
 # Docker Volume
 - Docker Volume mirip dengan Bind Mounts, bedanya adalah terdapat management Volume, dimana kita bisa membuat Volume, melihat daftar Volume, dan menghapus Volume
 - Untuk membuat volume, kita bisa gunakan perintah :
@@ -149,7 +149,7 @@ docker container run --rm --name ubunturestore --mount "type=bind,source=/c/back
 
 docker container create --name mongistore --publish 2331:27017 --mount "type=volume,source=data-restore,destination=/data" mongo:latest
 ```
-
+---
 # Docker Network
 - Dengan menggunakan Network, kita bisa mengkoneksikan container dengan container lain dalam satu Network yang sama
 - Jika beberapa container terdapat pada satu Network yang sama, maka secara otomatis container tersebut bisa saling berkomunikasi
@@ -185,6 +185,7 @@ docker network connect <namanetwork> <namacontainer>
 ```bash
 docker network disconnect <namanetwork> <namacontainer>
 ```
+---
 # Docker Inspect
 - Setelah kita men-download image, atau membuat network, volume dan container. Kadang kita ingin melihat detail dari tiap hal tersebut
 - Untuk melihat detail dari image, gunakan : `docker image inspect <namaimage>`
@@ -200,7 +201,7 @@ docker network disconnect <namanetwork> <namacontainer>
 - Untuk menghapus semua network yang tidak digunakan container, gunakan : `docker network prune`
 - Untuk menghapus semua volume yang tidak digunakan container, gunakan : `docker volume prune`
 - Atau kita bisa menggunakan satu perintah untuk menghapus container, network dan image yang sudah tidak digunakan menggunakan perintah : `docker system prune`
-
+---
 
 
 # Dummy
