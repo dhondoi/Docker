@@ -87,3 +87,7 @@ docker container exec -i -t <nama-container> bin/bash
 docker container create --name <nama-container> --publish <post-host:port-container> <image>:<tag>
 ```
 - Jika kita ingin melakukan port forwarding lebih dari satu, kita bisa tambahkan dua kali parameter --publish
+# Container Environment Variable
+- Dengan menggunakan environment variable, kita bisa mengubah-ubah konfigurasi aplikasi, tanpa harus mengubah kode aplikasinya lagi
+- Untuk menambah environment variable, kita bisa menggunakan perintah --env atau -e, misal :
+docker container create --name namacontainer --env KEY=”value” --env KEY2=”value” image:tag
