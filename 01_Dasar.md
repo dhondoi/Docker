@@ -79,3 +79,11 @@ docker container logs -f <nama-container>
 # misal mau buka bash
 docker container exec -i -t <nama-container> bin/bash
 ```
+# Container Port
+- Artinya sistem Host (misal Laptop kita), tidak bisa mengakses aplikasi yang ada di dalam container secara langsung, salah satu caranya adalah harus menggunakan Container Exec untuk masuk ke dalam container nya.
+- Docker memiliki kemampuan untuk melakukan port forwarding, yaitu meneruskan sebuah port yang terdapat di sistem Host nya ke dalam Docker Container
+- Untuk melakukan port forwarding, kita bisa menggunakan perintah berikut ketika membuat container nya :
+```bash
+docker container create --name <nama-container> --publish <post-host:port-container> <image>:<tag>
+```
+- Jika kita ingin melakukan port forwarding lebih dari satu, kita bisa tambahkan dua kali parameter --publish
