@@ -205,7 +205,7 @@ docker network disconnect <namanetwork> <namacontainer>
 
 # Dummy
 ```bash
-docker image create --name nginx-image --publish 80:80 --cpus 1 --memory 100m nginx:latest
+docker container create --name nginx-container --publish 80:80 --cpus 1 --memory 100m nginx:latest
 
 docker container create --name nginx-container --publish 80:8080 --cpus 1 --memory 100m --mount "type=bind,source=/C/Users/dhondoi/Documents/mariadb/html-lokal,destination=/usr/share/nginx/html,readonly" --env NGINX_PORT=8080 --network nginx-network image:tag nginx:latest
 
