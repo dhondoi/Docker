@@ -158,8 +158,55 @@ docker container create --name mongistore --publish 2331:27017 --mount "type=vol
 - host, yaitu driver yang digunakan untuk membuat network yang sama dengan sistem host. host hanya jalan di Docker Linux, tidak bisa digunakan di Mac atau Windows
 - none, yaitu driver untuk membuat network yang tidak bisa berkomunikasi
 
+- Untuk melihat network di Docker, kita bisa gunakan perintah :
+```bash
+docker network ls
+```
+- Untuk membuat network baru, kita bisa menggunakan perintah :
+```bash
+docker network create --driver <namadriver> <namanetwork>
+```
+- Untuk menghapus Network, kita bisa gunakan perintah :
+```bash
+docker network rm <namanetwork>
+```
+# Docker Container Network
+- Setelah kita membuat Network, kita bisa menambahkan container ke network
+- Container yang terdapat di dalam network yang sama bisa saling berkomunikasi (tergantung jenis driver network nya)
+- Container bisa mengakses container lain dengan menyebutkan hostname dari container nya, yaitu nama container nya
+- Untuk menambahkan container ke network, kita bisa menambahkan perintah --network ketika membuat container, misal :
+```bash
+docker container create --name namacontainer --publish <porthost>:<portcontainer> --cpus <amountcpuusage> --memory <amountmemoryusage><b/k/m/g> --mount "type=<bind/mount/volume>,source=<folder>,destination=<folder>,readonly" --network <namanetwork> image:tag
+```
+```bash
+docker network connect <namanetwork> <namacontainer>
+```
+- Jika diperlukan, kita juga bisa menghapus container dari network dengan perintah :
+```bash
+docker network disconnect <namanetwork> <namacontainer>
+```
+# Docker Inspect
+- Setelah kita men-download image, atau membuat network, volume dan container. Kadang kita ingin melihat detail dari tiap hal tersebut
+- Untuk melihat detail dari image, gunakan : `docker image inspect <namaimage>`
+- Untuk melihat detail dari container, gunakan : `docker container inspect <namacontainer>`
+- Untuk melihat detail dari volume, gunakan : `docker volume inspect <namavolume>`
+- Untuk melihat detail dari network, gunakan : `docker network inspect <namanetwork>`
+# Docker Prune
+- Saat kita menggunakan Docker, kadang ada kalanya kita ingin membersihkan hal-hal yang sudah tidak digunakan lagi di Docker, misal container yang sudah di stop, image yang tidak digunakan oleh container, atau volume yang tidak digunakan oleh container
+- Fitur untuk membersihkan secara otomatis di Docker bernama prune
+- Hampir di semua perintah di Docker mendukung prune
+- Untuk menghapus semua container yang sudah stop, gunakan : `docker container prune`
+- Untuk menghapus semua image yang tidak digunakan container, gunakan : `docker image prune`
+- Untuk menghapus semua network yang tidak digunakan container, gunakan : `docker network prune`
+- Untuk menghapus semua volume yang tidak digunakan container, gunakan : `docker volume prune`
+- Atau kita bisa menggunakan satu perintah untuk menghapus container, network dan image yang sudah tidak digunakan menggunakan perintah : `docker system prune`
+
+
 
 # Dummy
 ```bash
-docker container create --name nginx-container --publish 80:8080 --cpus 1 --memory 100m --mount "type=bind,source=/C/Users/dhondoi/Documents/mariadb/html-lokal,destination=/usr/share/nginx/html,readonly" --env NGINX_PORT=8080 nginx:latest
+docker image create --name nginx-image --publish 80:80 --cpus 1 --memory 100m nginx:latest
+
+docker container create --name nginx-container --publish 80:8080 --cpus 1 --memory 100m --mount "type=bind,source=/C/Users/dhondoi/Documents/mariadb/html-lokal,destination=/usr/share/nginx/html,readonly" --env NGINX_PORT=8080 --network nginx-network image:tag nginx:latest
+
 ```
