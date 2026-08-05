@@ -1,12 +1,12 @@
 # Key Point
 
-- [Image](#docker-image)
-- [Container](#docker-container)
-- [Port](#docker-container-port)
-- [Resource Limit](#docker-container-resource-limit)
-- [Bind Mounts](#docker-container-bind-mounts)
-- [Volume](#docker-volume)
-- [Network](#docker-network)
+- [Image](#docker-image) - installer
+- [Container](#docker-container) - aplikasi hasil installer
+- [Port](#docker-container-port) - pengaturan port saat membuat container
+- [Resource Limit](#docker-container-resource-limit) - pengaturan cpu dan memory saat membuat coontainer
+- [Bind Mounts](#docker-container-bind-mounts) - menyimpan data aplikasi dalam container ke dalam folder di sistem host
+- [Volume](#docker-volume) - bagian dari bind mount, namun tersimpan dalam lingkungan docker
+- [Network](#docker-network) - mengkoneksikan container dengan container lain dalam satu Network yang sama
 
 ---
 # Instalasi
