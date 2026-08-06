@@ -40,3 +40,11 @@ CMD command param param
 CMD [“executable”, “param”, “param”]
 CMD [“param”, “param”], akan menggunakan executable ENTRY POINT, yang akan dibahas di chapter terpisah
 ```
+# Label Instruction
+- digunakan untuk menambahkan metadata ke dalam Docker Image
+- Metadata adalah informasi tambahan, misal seperti nama aplikasi, pembuat, website, perusahaan, lisensi dan lain-lain
+- Berikut adalah format instruksi LABEL
+```dockerfile
+LABEL <key>=<value>
+LABEL <key1>=<value1> <key2>=<value2> …
+```

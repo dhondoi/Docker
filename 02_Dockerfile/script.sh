@@ -22,7 +22,7 @@ docker container start command
 docker container logs command
 
 # LABEL Instruction
-docker build -t dhondoi/label label
+docker build -t dhondoi/label 04_label
 
 docker image inspect dhondoi/label
 
