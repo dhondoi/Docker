@@ -79,3 +79,12 @@ EXPOSE port # default nya menggunakan TCP
 EXPOSE port/tcp
 EXPOSE port/udp
 ```
+# Environment Variable Instruction
+- ENV adalah instruksi yang digunakan untuk mengubah environment variable, baik itu ketika tahapan build atau ketika jalan dalam Docker Container
+- ENV yang sudah di definisikan di dalam Dockerfile bisa digunakan kembali dengan menggunakan sintaks ${NAMA_ENV}
+- Selain itu, environment variable juga bisa diganti nilainya ketika pembuatan Docker Container dengan perintah docker container create `--env <key>="<value>"`
+- Berikut adalah format untuk instruksi ENV :
+```dockerfile
+ENV key=value 
+ENV ke1=value1 key2=value2 …
+```

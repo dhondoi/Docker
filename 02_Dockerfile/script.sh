@@ -67,7 +67,7 @@ docker container ls
 docker container stop expose
 
 # ENV Instruction
-docker build -t dhondoi/env env
+docker build -t dhondoi/env 09_env
 
 docker image inspect dhondoi/env
 
