@@ -82,7 +82,7 @@ docker container logs env
 docker container stop env
 
 # VOLUME Instruction
-docker build -t dhondoi/volume volume
+docker build -t dhondoi/volume 10_volume
 
 docker image inspect dhondoi/volume
 
