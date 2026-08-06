@@ -54,7 +54,7 @@ docker container start ignore
 docker container logs ignore
 
 # EXPOSE Instruction
-docker build -t dhondoi/expose expose
+docker build -t dhondoi/expose 08_expose
 
 docker image inspect dhondoi/expose
 

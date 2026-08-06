@@ -71,3 +71,11 @@ COPY *.txt hello # menambah semua file .txt ke folder hello
 # .dockerignore File
 - Saat kita melakukan ADD atau COPY dari file source, pertama Docker akan membaca file yang bernama .dockerignore
 - File .dockerignore ini seperti file .gitignore, dimana kita bisa menyebutkan file-file apa saja yang ingin kita ignore (hiraukan)
+# Expose Instruction
+- EXPOSE adalah instruksi untuk memberitahu bahwa container akan listen port pada nomor dan protocol tertentu
+- Berikut adalah format untuk instruksi EXPOSE :
+```dockerfile
+EXPOSE port # default nya menggunakan TCP
+EXPOSE port/tcp
+EXPOSE port/udp
+```
