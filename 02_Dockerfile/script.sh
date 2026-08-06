@@ -108,7 +108,7 @@ docker container start workdir
 docker container exec -i -t workdir /bin/sh
 
 # USER Instruction
-docker build -t dhondoi/user user
+docker build -t dhondoi/user 12_user
 
 docker container create --name user -p 8080:8080 dhondoi/user
 
