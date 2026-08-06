@@ -1,11 +1,10 @@
 # Pengenalan Dockerfile
 - Pembuatan Docker Image bisa dilakukan dengan menggunakan instruksi yang kita simpan di dalam file Dockerfile
 - Dockerfile adalah file text yang berisi semua perintah yang bisa kita gunakan untuk membuat sebuah Docker Image
-- Saat membuat Docker Image dengan docker build, nama image secara otomatis akan dibuat random, dan biasanya kita ingin menambahkan nama/tag pada image nya, kita bisa mengubahnya dengan menambahkan perintah -t
 - Misal berikut adalah contoh cara menggunakan docker build :
 ```bash
-docker build -t khannedy/app:1.0.0  folder-dockerfile
-docker build -t khannedy/app:1.0.0 -t khannedy/app:latest folder-dockerfile
+docker build -t <khannedy/app:1.0.0>  <folder-dockerfile>
+docker build -t <khannedy/app:1.0.0> -t <khannedy/app:latest> <folder-dockerfile>
 ```
 - Secara sederhana berikut adalah format untuk file Dockerfile :
 ```dockerfile
@@ -22,4 +21,13 @@ INSTRUCTION arguments
 - Untuk menggunakan FROM, kita bisa gunakan perintah :
 ```dockerfile
 FROM image:version
+```
+# Run Instruction
+- RUN adalah sebuah instruksi untuk mengeksekusi perintah di dalam image pada saat build stage. 
+- Hasil perintah RUN akan di commit dalam perubahan image tersebut, jadi perintah RUN akan dieksekusi pada saat proses docker build saja, setelah menjadi Docker Image, perintah tersebut tidak akan dijalankan lagi. 
+- Jadi ketika kita menjalankan Docker Container dari Image tersebut, maka perintah RUN tidak akan dijalankan lagi.
+- Perintah RUN memiliki 2 format :
+```dockerfile
+RUN command
+RUN [“executable”, “argument”, “...”]
 ```

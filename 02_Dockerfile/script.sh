@@ -6,9 +6,9 @@ docker build -t dhondoi/from 01_from
 docker image ls
 
 # RUN Instruction
-docker build -t dhondoi/run run
+docker build -t dhondoi/run 02_run
 
-docker build -t dhondoi/run run --progress=plain --no-cache
+docker build -t dhondoi/run 02_run --progress=plain --no-cache
 
 # CMD Instruction
 docker build -t dhondoi/command command
