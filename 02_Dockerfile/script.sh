@@ -117,7 +117,7 @@ docker container start user
 docker container exec -i -t user /bin/sh
 
 # ARG Instruction
-docker build -t dhondoi/arg arg --build-arg app=pzn
+docker build -t dhondoi/arg 13_arg --build-arg app=pzn
 
 docker container create --name arg -p 8080:8080 dhondoi/arg
 
