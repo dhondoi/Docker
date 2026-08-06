@@ -1,63 +1,64 @@
+# Change to directory first
 
 # FROM Instruction
-docker build -t khannedy/from from
+docker build -t dhondoi/from 01_from
 
 docker image ls
 
 # RUN Instruction
-docker build -t khannedy/run run
+docker build -t dhondoi/run run
 
-docker build -t khannedy/run run --progress=plain --no-cache
+docker build -t dhondoi/run run --progress=plain --no-cache
 
 # CMD Instruction
-docker build -t khannedy/command command
+docker build -t dhondoi/command command
 
-docker image inspect khannedy/command
+docker image inspect dhondoi/command
 
-docker container create --name command khannedy/command
+docker container create --name command dhondoi/command
 
 docker container start command
 
 docker container logs command
 
 # LABEL Instruction
-docker build -t khannedy/label label
+docker build -t dhondoi/label label
 
-docker image inspect khannedy/label
+docker image inspect dhondoi/label
 
 # ADD Instruction
-docker build -t khannedy/add add
+docker build -t dhondoi/add add
 
-docker container create --name add khannedy/add
+docker container create --name add dhondoi/add
 
 docker container start add
 
 docker container logs add
 
 # COPY Instruction
-docker build -t khannedy/copy copy
+docker build -t dhondoi/copy copy
 
-docker container create --name copy khannedy/copy
+docker container create --name copy dhondoi/copy
 
 docker container start copy
 
 docker container logs copy
 
 # .dockerignore
-docker build -t khannedy/ignore ignore
+docker build -t dhondoi/ignore ignore
 
-docker container create --name ignore khannedy/ignore
+docker container create --name ignore dhondoi/ignore
 
 docker container start ignore
 
 docker container logs ignore
 
 # EXPOSE Instruction
-docker build -t khannedy/expose expose
+docker build -t dhondoi/expose expose
 
-docker image inspect khannedy/expose
+docker image inspect dhondoi/expose
 
-docker container create --name expose -p 8080:8080 khannedy/expose
+docker container create --name expose -p 8080:8080 dhondoi/expose
 
 docker container start expose
 
@@ -66,11 +67,11 @@ docker container ls
 docker container stop expose
 
 # ENV Instruction
-docker build -t khannedy/env env
+docker build -t dhondoi/env env
 
-docker image inspect khannedy/env
+docker image inspect dhondoi/env
 
-docker container create --name env --env APP_PORT=9090 -p 9090:9090 khannedy/env
+docker container create --name env --env APP_PORT=9090 -p 9090:9090 dhondoi/env
 
 docker container start env
 
@@ -81,11 +82,11 @@ docker container logs env
 docker container stop env
 
 # VOLUME Instruction
-docker build -t khannedy/volume volume
+docker build -t dhondoi/volume volume
 
-docker image inspect khannedy/volume
+docker image inspect dhondoi/volume
 
-docker container create --name volume -p 8080:8080 khannedy/volume
+docker container create --name volume -p 8080:8080 dhondoi/volume
 
 docker container start volume
 
@@ -98,36 +99,36 @@ docker container inspect volume
 docker volume ls
 
 # WORKDIR Instruction
-docker build -t khannedy/workdir workdir
+docker build -t dhondoi/workdir workdir
 
-docker container create --name workdir -p 8080:8080 khannedy/workdir
+docker container create --name workdir -p 8080:8080 dhondoi/workdir
 
 docker container start workdir
 
 docker container exec -i -t workdir /bin/sh
 
 # USER Instruction
-docker build -t khannedy/user user
+docker build -t dhondoi/user user
 
-docker container create --name user -p 8080:8080 khannedy/user
+docker container create --name user -p 8080:8080 dhondoi/user
 
 docker container start user
 
 docker container exec -i -t user /bin/sh
 
 # ARG Instruction
-docker build -t khannedy/arg arg --build-arg app=pzn
+docker build -t dhondoi/arg arg --build-arg app=pzn
 
-docker container create --name arg -p 8080:8080 khannedy/arg
+docker container create --name arg -p 8080:8080 dhondoi/arg
 
 docker container start arg
 
 docker container exec -i -t arg /bin/sh
 
 # HEALTHCHECK Instruction
-docker build -t khannedy/health health
+docker build -t dhondoi/health health
 
-docker container create --name health -p 8080:8080 khannedy/health
+docker container create --name health -p 8080:8080 dhondoi/health
 
 docker container start health
 
@@ -136,26 +137,26 @@ docker container ls
 docker container inspect health
 
 # ENTRYPOINT Instruction
-docker build -t khannedy/entrypoint entrypoint
+docker build -t dhondoi/entrypoint entrypoint
 
-docker image inspect khannedy/entrypoint
+docker image inspect dhondoi/entrypoint
 
-docker container create --name entrypoint -p 8080:8080 khannedy/entrypoint
+docker container create --name entrypoint -p 8080:8080 dhondoi/entrypoint
 
 docker container start entrypoint
 
 # Multi Stage Build
-docker build -t khannedy/multi multi
+docker build -t dhondoi/multi multi
 
 docker image ls
 
-docker container create --name multi -p 8080:8080 khannedy/multi
+docker container create --name multi -p 8080:8080 dhondoi/multi
 
 docker container start multi
 
 # Docker Push
-docker tag khannedy/multi registry.digitalocean.com/programmerzamannow/multi
+docker tag dhondoi/multi registry.digitalocean.com/programmerzamannow/multi
 
-docker --config /Users/khannedy/.docker-digital-ocean/ push registry.digitalocean.com/programmerzamannow/multi
+docker --config /Users/dhondoi/.docker-digital-ocean/ push registry.digitalocean.com/programmerzamannow/multi
 
-docker --config /Users/khannedy/.docker-digital-ocean/ pull registry.digitalocean.com/programmerzamannow/multi
+docker --config /Users/dhondoi/.docker-digital-ocean/ pull registry.digitalocean.com/programmerzamannow/multi
