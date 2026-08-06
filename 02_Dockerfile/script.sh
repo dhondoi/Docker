@@ -137,7 +137,7 @@ docker container ls
 docker container inspect health
 
 # ENTRYPOINT Instruction
-docker build -t dhondoi/entrypoint entrypoint
+docker build -t dhondoi/entrypoint 15_entrypoint
 
 docker image inspect dhondoi/entrypoint
 
