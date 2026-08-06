@@ -27,7 +27,7 @@ docker build -t dhondoi/label 04_label
 docker image inspect dhondoi/label
 
 # ADD Instruction
-docker build -t dhondoi/add add
+docker build -t dhondoi/add 05_add
 
 docker container create --name add dhondoi/add
 
