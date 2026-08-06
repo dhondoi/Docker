@@ -99,7 +99,7 @@ docker container inspect volume
 docker volume ls
 
 # WORKDIR Instruction
-docker build -t dhondoi/workdir workdir
+docker build -t dhondoi/workdir 11_workdir
 
 docker container create --name workdir -p 8080:8080 dhondoi/workdir
 
