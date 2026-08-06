@@ -126,7 +126,7 @@ docker container start arg
 docker container exec -i -t arg /bin/sh
 
 # HEALTHCHECK Instruction
-docker build -t dhondoi/health health
+docker build -t dhondoi/health 14_health
 
 docker container create --name health -p 8080:8080 dhondoi/health
 

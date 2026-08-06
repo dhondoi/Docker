@@ -127,3 +127,16 @@ USER <user>:<group> # mengubah user dan user group
 ARG key # membuat argument variable
 ARG key=defaultvalue # membuat argument variable dengan default value jika tidak diisi
 ```
+# Health Check Instruction
+- HEALTHCHECK adalah instruksi yang digunakan untuk memberi tahu Docker bagaimana untuk mengecek apakah Container masih berjalan dengan baik atau tidak
+- Jika terdapat HEALTHCHECK, secara otomatis Container akan memili status health, dari awalnya bernilai starting, jika sukses maka bernilai healthy, jika gagal akan bernilai unhealty
+- Berikut adalah format untuk instruksi HEALTHCHECK :
+```dockerfile
+HEALTHCHECK NONE # artinya disabled health check
+HEALTHCHECK [OPTIONS] CMD command 
+OPTIONS :
+--interval=DURATION (default: 30s)
+--timeout=DURATION (default: 30s)
+--start-period=DURATION (default: 0s)
+--retries=N (default: 3)
+```
