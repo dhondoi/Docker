@@ -146,7 +146,7 @@ docker container create --name entrypoint -p 8080:8080 dhondoi/entrypoint
 docker container start entrypoint
 
 # Multi Stage Build
-docker build -t dhondoi/multi multi
+docker build -t dhondoi/multi 16_multi
 
 docker image ls
 
