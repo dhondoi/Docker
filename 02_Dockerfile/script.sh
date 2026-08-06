@@ -36,7 +36,7 @@ docker container start add
 docker container logs add
 
 # COPY Instruction
-docker build -t dhondoi/copy copy
+docker build -t dhondoi/copy 06_copy
 
 docker container create --name copy dhondoi/copy
 
