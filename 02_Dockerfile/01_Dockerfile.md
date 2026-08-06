@@ -68,3 +68,6 @@ Contoh :
 COPY world.txt hello # menambah file world.txt ke folder hello
 COPY *.txt hello # menambah semua file .txt ke folder hello
 ```
+# .dockerignore File
+- Saat kita melakukan ADD atau COPY dari file source, pertama Docker akan membaca file yang bernama .dockerignore
+- File .dockerignore ini seperti file .gitignore, dimana kita bisa menyebutkan file-file apa saja yang ingin kita ignore (hiraukan)

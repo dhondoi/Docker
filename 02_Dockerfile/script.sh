@@ -45,7 +45,7 @@ docker container start copy
 docker container logs copy
 
 # .dockerignore
-docker build -t dhondoi/ignore ignore
+docker build -t dhondoi/ignore 07_ignore
 
 docker container create --name ignore dhondoi/ignore
 
