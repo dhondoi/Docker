@@ -31,3 +31,12 @@ FROM image:version
 RUN command
 RUN [“executable”, “argument”, “...”]
 ```
+# Command Instruction
+- CMD tidak akan dijalankan ketika proses build, namun dijalankan ketika Docker Container berjalan
+- Dalam Dockerfile, kita tidak bisa menambah lebih dari satu instruksi CMD, jika kita tambahkan lebih dari satu instruksi CMD, maka yang akan digunakan untuk menjalankan Docker Container adalah instruksi CMD yang terakhir
+- Perintah CMD memiliki beberapa format :
+```dockerfile
+CMD command param param
+CMD [“executable”, “param”, “param”]
+CMD [“param”, “param”], akan menggunakan executable ENTRY POINT, yang akan dibahas di chapter terpisah
+```

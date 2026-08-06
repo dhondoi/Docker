@@ -11,7 +11,7 @@ docker build -t dhondoi/run 02_run
 docker build -t dhondoi/run 02_run --progress=plain --no-cache
 
 # CMD Instruction
-docker build -t dhondoi/command command
+docker build -t dhondoi/command 03_command
 
 docker image inspect dhondoi/command
 
