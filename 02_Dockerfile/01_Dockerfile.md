@@ -162,3 +162,28 @@ Saat menggunakan CMD [“param1”, “param2”], maka param tersebut akan diki
 - Setiap Instruksi FROM, artinya itu adalah build stage
 - Hal build stage terakhir adalah build stage yang akan dijadikan sebagai Image
 - Artinya, kita bisa memanfaatkan Docker build stage ini untuk melakukan proses kompilasi kode program Go-Lang kita
+# Docker Hub Registry
+- Setelah kita selesai membuat Image, selanjutnya hal yang biasa dilakukan adalah mengupload Image tersebut ke Docker Registry
+- Salah satu Docker Registry yang gratis contohnya adalah Docker Hub
+- https://hub.docker.com/ 
+```bash
+docker login -u <username>
+docker push <image>
+```
+# Digital Ocean Container Registry
+- Digital Ocean adalah salah satu cloud provider yang populer, dan memiliki fitur Docker Registry bernama Container Registry
+- Terdapat Free Version untuk ukuran sampai 500MB yang bisa kita gunakan
+https://www.digitalocean.com/products/container-registry 
+- Silahkan buat Container Registry terlebih dahulu
+- Berbeda dengan Docker Hub yang kita diperlukan melakukan login ketika ingin melakukan push ke Registry
+- Di Digital Ocean, kita akan menggunakan Docker Config untuk mengirim Image ke Digital Ocean Container Registry
+- Ini lebih mudah karena kita bisa dengan gampang push Image dari manapun selama menggunakan config file yang sama
+- Secara default, Docker akan membaca config yang terdapat di $HOME/.docker
+- Di dalamnya terdapat file config.json yang berisi konfigurasi credential yang sudah kita gunakan - ketika login ke Docker Hub
+- Agar tidak mengganggu, khusus untuk Digital Ocean, kita akan buat folder terpisah, misal .docker-digital-ocean
+- Selanjunya file creadential yang sudah di download, silahkan ganti namanya menjadi config.json dan simpan di folder .docker-digital-ocean tersebut
+- Jika kita menggunakan perintah docker push, secara default itu akan melakukan push ke Container Registry yang teregistrasi di $HOME/.docker
+- Karena kita menggunakan lokasi yang berbeda untuk Digital Ocean, jadi ketika melakukan push, kita perlu mengubah default config nya menggunaka perintah :
+```bash
+docker --config /lokasi/folder/config/ push image
+```
