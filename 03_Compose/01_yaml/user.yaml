@@ -2,15 +2,18 @@ firstName: Eko
 middleName: Kurniawan
 lastName: Khannedy
 hobbies:
+# array
   - Coding
   - Reading
   - Gaming
 address:
+# object
     street: Jalan Kenangan
     city: Jakarta
     province: DKI Jakarta
     country: Indonesia
 wallet:
+# array of object
   - type: cast
     amount: 100000
   - type: debit
