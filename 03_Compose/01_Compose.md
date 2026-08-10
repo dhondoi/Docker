@@ -44,3 +44,6 @@ docker compose ls
 - Saat membuat Container, kita bisa mengekspose port di Container keluar menggunakan Port Forwarding
 - Kita juga bisa melakukan hal tersebut di konfigurasi file Docker Compose dengan menggunakan attribute ports
 - Attribute ports berisi array object port
+# Environment Variable
+- Saat membuat container, kita juga menambahkan environment variable untuk digunakan di dalam container
+- Saat menggunakan konfigurasi file Docker Compose, kita bisa tambahkan environment variable dengan menggunakan attribute environment
