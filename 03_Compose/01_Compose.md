@@ -71,3 +71,11 @@ docker volume rm <nama-volume>
 name: Nama network
 driver: Driver network seperti bridge, host atau none
 ```
+# Depends On
+- Saat membuat file Docker Compose yang berisi banyak Container
+- Kadang kita membuat Container yang butuh Container lain sebelum berjalan
+- Atau sederhananya, kita ingin ada urutan Container berjalan
+- Secara default, Docker Compose akan menjalankan semua Container secara bersamaan, tanpa ada urutan pasti
+- Kita bisa membuat urutan menjalankan Container dengan menggunakan attribute depends_on
+- Kita bisa sebutkan pada Container, bahwa Container ini hanya bisa berjalan, kalo Container yang lain sudah berjalan
+- Kita bisa sebutkan satu atau lebih Container lainnya pada attribute depends_on
