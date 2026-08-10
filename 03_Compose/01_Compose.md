@@ -94,3 +94,9 @@ docker events
 ```bash
 docker events --filter 'container=<nama>'
 ```
+# Resource Limit
+- Kita juga bisa menggunakan file konfigurasi Docker Compose untuk mengatur Resource Limit untuk CPU dan Memory dari tiap Container yang akan kita buat
+- Kita bisa menggunakan attribute deploy, lalu didalamnya menggunakan attribute resources
+- Di dalam attribute resources kita bisa tentukan limit dan reservations
+- reservation adalah resource yang dijamin bisa digunakan oleh container
+- limit adalah limit maksimal untuk resource yang diberikan ke container, namun ingat bisa saja limit ini rebutan dengan container lain
