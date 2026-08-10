@@ -110,3 +110,18 @@ docker events --filter 'container=<nama>'
 - Jika kita ingin menentukan namanya, kita bisa tambahkan attribute image pada service, secara otomatis Docker Compose akan membuat image dengan nama sesuai dengan itu
 - Ketika kita menggunakan perintah docker compose start, secara otomatis Docker Compose akan melakukan build terlebih dahulu jika Image nya belum terbuat
 - Tapi jika kita hanya ingin melakukan build Image saja, tanpa membuat Container, kita juga bisa menggunakan perintah : `docker compose build`
+# Health Check
+- Kita pernah bahas tentang Container Health Check di materi Docker Dockerfile
+- Secara default Container yang dibuat, baik itu secara manual ataupun menggunakan Docker Compose, pasti akan selalu menggunakan Health Check yang dibuat di Dockerfile
+- Namun, jika kita ingin mengubah Health Check tersebut, itu juga bisa kita lakukan
+- Kita bisa ubah di file konfigurasi Docker Compose pada attribute healthcheck di services
+- Health Check memiliki banyak attribute, seperti
+1. test: berisikan cara melakukan test health check
+2. interval: interval melakukan health check
+3. timeout: timeout melakukan health check
+4. retries: total retry ketika gagal
+5. start_period: waktu mulai melakukan health check
+6. Hampir mirip dengan ketika kita membuat Health Check di Dockerfile
+- Jika kita tidak mau ada health check, kita juga bisa menonaktifkan nya
+- Secara otomatis health check bawaan dari Docker Image nya pun tidak akan diaktifkan
+- Cukup di attribute healthcheck, tambahkan attribute `disabled: true`

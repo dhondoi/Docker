@@ -1,4 +1,4 @@
-version: "3.8"
+name: health_check-test
 
 services:
   app:
