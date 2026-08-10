@@ -51,3 +51,12 @@ docker compose ls
 - Untuk melakukan bind mount, kita juga bisa lakukan di konfigurasi file Docker Compose
 - Kita bisa gunakan attribute volumes di services
 - Kita bisa tambahkan satu atau lebih bind mount jika kita mau
+# Volume
+- Docker Compose juga tidak hanya bisa digunakan untuk membuat container, tapi bisa juga digunakan untuk membuat volume
+- Kita bisa menggunakan attribute volumes pada konfigurasi file
+- Saat kita menggunakan perintah docker compose down, yang dihapus hanyalah Container dan Network saja
+- Volume tidak akan dihapus, hal ini agar jangan sampai kita tidak sengaja menghapus volume
+- Jika ingin menghapus volume, kita bisa lakukan manual dengan perintah 
+```bash
+docker volume rm <nama-volume>
+```
