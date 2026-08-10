@@ -1,3 +1,4 @@
+```dockerfile
 # ==========================================
 # STAGE 1: Build & Dependencies
 # ==========================================
@@ -46,3 +47,4 @@ HEALTHCHECK --interval=30s --timeout=3s \
 
 # Jalankan aplikasi
 CMD ["node", "server.js"]
+```
