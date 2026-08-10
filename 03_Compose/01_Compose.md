@@ -40,3 +40,7 @@ docker compose down
 ```bash
 docker compose ls
 ```
+# Port
+- Saat membuat Container, kita bisa mengekspose port di Container keluar menggunakan Port Forwarding
+- Kita juga bisa melakukan hal tersebut di konfigurasi file Docker Compose dengan menggunakan attribute ports
+- Attribute ports berisi array object port
