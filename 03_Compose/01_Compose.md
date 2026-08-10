@@ -79,3 +79,18 @@ driver: Driver network seperti bridge, host atau none
 - Kita bisa membuat urutan menjalankan Container dengan menggunakan attribute depends_on
 - Kita bisa sebutkan pada Container, bahwa Container ini hanya bisa berjalan, kalo Container yang lain sudah berjalan
 - Kita bisa sebutkan satu atau lebih Container lainnya pada attribute depends_on
+# Restart
+- Secara default, saat Container mati, maka Docker tidak akan menjalankan lagi Container nya
+- Kita harus menjalankan lagi Container nya secara manual
+- Kita bisa memaksa sebuah container untuk selalu melakukan restart jika misal terjadi masalah pada Container nya
+- Kita bisa tambahkan attribute restart, dengan beberapa value :
+1. no: default nya tidak pernah restart
+2. always: selalu restart jika container berhenti, tapi jika di hentikan manual, dia akan restart ketika pertama kali docker restart
+3. on-failure: restart jika container error dengan indikasi error ketika exit
+4. unless-stopped: selalu restart container, kecuali ketika dihentikan manual
+- Untuk melihat kejadian apa saja yang terjadi di Docker secara realtime, kita bisa menggunakan perintah :
+docker events
+- Contohnya kita bisa memonitor kejadian yang terjadi pada sebuah contanier dengan perintah :
+```bash
+docker events --filter 'container=<nama>'
+```
