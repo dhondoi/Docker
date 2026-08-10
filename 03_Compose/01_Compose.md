@@ -60,3 +60,14 @@ docker compose ls
 ```bash
 docker volume rm <nama-volume>
 ```
+# Network
+- Selain membuat Container dan Volume, kita juga bisa menggunakan Docker Compose untuk membuat Network secara otomatis
+- Saat kita menjalankan file menggunakan Docker Compose, secara default semua container akan dihubungkan dalam sebuah Network bernama nama-project_default
+- Jadi sebenarnya kita tidak perlu membuat Network secara manual
+- Silahkan inspect container yang sudah berjalan menggunakan Docker Compose, lalu lihat pada bagian Network
+- Tapi jika kita ingin membuat Network secara manual, kita juga bisa menggunakan Docker Compose
+- Kita bisa buat satu atau lebih Network menggunakan attribute networks, dimana kita perlu tentukan :
+```yaml
+name: Nama network
+driver: Driver network seperti bridge, host atau none
+```
