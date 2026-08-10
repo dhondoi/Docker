@@ -47,3 +47,7 @@ docker compose ls
 # Environment Variable
 - Saat membuat container, kita juga menambahkan environment variable untuk digunakan di dalam container
 - Saat menggunakan konfigurasi file Docker Compose, kita bisa tambahkan environment variable dengan menggunakan attribute environment
+# Bind Mount
+- Untuk melakukan bind mount, kita juga bisa lakukan di konfigurasi file Docker Compose
+- Kita bisa gunakan attribute volumes di services
+- Kita bisa tambahkan satu atau lebih bind mount jika kita mau
