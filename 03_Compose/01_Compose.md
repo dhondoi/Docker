@@ -100,3 +100,13 @@ docker events --filter 'container=<nama>'
 - Di dalam attribute resources kita bisa tentukan limit dan reservations
 - reservation adalah resource yang dijamin bisa digunakan oleh container
 - limit adalah limit maksimal untuk resource yang diberikan ke container, namun ingat bisa saja limit ini rebutan dengan container lain
+# Dockerfile
+- Ketika kita ingin membuat Container dari Dockerfile, kita tidak menggunakan attribute image lagi di service nya
+- Kita harus menggunakan attribute build, dimana terdapat attribute :
+1. context: berisi path ke file Dockerfile
+2. dockerfile: nama file Dockerfile, bisa diganti jika mau
+3. args: argument yang dibutuhkan ketika melakukan docker build
+- Secara default, Docker Compose akan membuat Image dengan nama random ketika melakukan build Dockerfile
+- Jika kita ingin menentukan namanya, kita bisa tambahkan attribute image pada service, secara otomatis Docker Compose akan membuat image dengan nama sesuai dengan itu
+- Ketika kita menggunakan perintah docker compose start, secara otomatis Docker Compose akan melakukan build terlebih dahulu jika Image nya belum terbuat
+- Tapi jika kita hanya ingin melakukan build Image saja, tanpa membuat Container, kita juga bisa menggunakan perintah : `docker compose build`
