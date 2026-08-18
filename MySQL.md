@@ -2,7 +2,7 @@
 ---
 ### DOCKER RUN
 ```bash
-docker run --name db-mysql 
+docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=12345 mysql:8 
 ```
 ---
 ### DOCKERFILE
