@@ -1,0 +1,16 @@
+services:
+  db:
+    image: dhi.io/mariadb:12
+    restart: always
+    secrets:
+      - mariadb_password
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_password
+      # MARIADB_ROOT_PASSWORD: secret
+    volumes:
+      - mariadb-data:/var/lib/mysql
+volumes:
+  mariadb-data:
+secrets:
+  mariadb_password:
+    file: ./mariadb-password.txt
