@@ -1,23 +1,16 @@
-{
-	# Menerima IP Asli dari Cloudflare via Proxy
-	trusted_proxies static private_ranges {
-		client_ip_headers CF-Connecting-IP
-	}
-}
-
 :80 {
 	# Root folder Laravel
 	root * /app/public
 
-	# Batas ukuran upload (client_max_body_size 10M)
+	# Batas ukuran upload
 	request_body {
 		max_size 10MB
 	}
 
-	# Optimasi Kompresi (Gzip & Zstd)
+	# Optimasi Kompresi
 	encode gzip zstd
 
-	# Security Headers & Sembunyikan Header Identitas Server/PHP
+	# Security Headers
 	header {
 		X-Frame-Options "SAMEORIGIN"
 		X-Content-Type-Options "nosniff"
@@ -31,26 +24,23 @@
 
 	# Restriksi HTTP Method
 	@invalid_method not method GET POST HEAD PUT PATCH DELETE OPTIONS
-	error @invalid_method 405
+	respond @invalid_method 405
 
-	# Hardening: Blokir eksekusi PHP di folder storage Laravel
-	@php_in_storage path /storage/*.php
-	error @php_in_storage 403
+	# Hardening: Blokir eksekusi PHP di seluruh subfolder storage (rekursif)
+	@php_in_storage path_regexp storage_php ^/storage/.*\.php$
+	respond @php_in_storage 403
 
-	# Hardening: Blokir akses ke file/folder tersembunyi (.env, .git, dll)
+	# Hardening: Blokir akses ke file/folder tersembunyi
 	@dotfiles {
 		path /.*
 		not path /.well-known/*
 	}
-	error @dotfiles 403
+	respond @dotfiles 403
 
-	# Optimasi Browser Caching untuk Aset Statis
-	@static path_regexp static \.(jpg|jpeg|png|gif|ico|css|js|eot|ttf|woff|woff2|svg)$
+	# Optimasi Caching Aset Statis (Glob path lebih cepat dari Regex)
+	@static path *.jpg *.jpeg *.png *.gif *.ico *.css *.js *.eot *.ttf *.woff *.woff2 *.svg
 	header @static Cache-Control "public, max-age=31536000, no-transform"
 
-	# KHUSUS FRANKENPHP: Menggantikan php_fastcgi dan try_files Laravel
+	# FrankenPHP: Otomatis menangani try_files Laravel, PHP execution, dan file_server
 	php_server
-
-	# Melayani file statis
-	file_server
 }
