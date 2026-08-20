@@ -14,15 +14,6 @@
 	# Root folder Laravel
 	root * /app/public
 
-	# Rate Limiting: Maksimal 100 request per 1 menit per IP
-	rate_limit {
-		zone global_limit {
-			key {remote_ip}
-			events 100
-			window 1m
-		}
-	}
-
 	# Batas ukuran upload
 	request_body {
 		max_size 10MB
