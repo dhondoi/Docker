@@ -3,9 +3,9 @@
 # CHEATSHEET DOCKER MARIADB
 ## RUN
 ```bash
-docker run --name maria-db -e MARIADB_ROOT_PASSWORD=12345 -d dhi.io/mariadb:12
+docker run --name maria-db -e MARIADB_ROOT_PASSWORD=12345 -d mariadb:12
 # port binding
-docker run --name maria-db -p 3306:3306 -e MARIADB_ROOT_PASSWORD=12345 -d dhi.io/mariadb:12
+docker run --name maria-db -p 3306:3306 -e MARIADB_ROOT_PASSWORD=12345 -d mariadb:12
 # exec it
 docker exec -it maria-db mariadb -u root -p
 ```
@@ -14,7 +14,7 @@ docker exec -it maria-db mariadb -u root -p
 ```yaml
 services:
   db:
-    image: dhi.io/mariadb:12
+    image: mariadb:12
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: my-secret-pw
@@ -31,10 +31,11 @@ volumes:
 - `MARIADB_DATA_DIR`	Path to the MariaDB data directory. Defaults to /var/lib/mysql. Do not override this value.
 ---
 ## Using Docker secrets
+- `docker-compose.yaml`
 ```yaml
 services:
   mariadb:
-    image: dhi.io/mariadb:<tag>
+    image: mariadb:<tag>
     secrets:
       - mariadb_password
     environment:
@@ -45,10 +46,11 @@ secrets:
 ```
 - Using Docker run with a mounted file:
 ```bash
-docker run --name some-mariadb \
+docker run --name <container-name> \
   -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password \
-  -v /path/to/password-file:/run/secrets/mariadb_password:ro \
-  -d dhi.io/mariadb:<tag>
+  -v $(pwd)/<name-file>:/run/secrets/mariadb_password:ro \
+  -p 3306:3306 \
+  -d mariadb:<tag>
 ```
 ---
 ## Passing MariaDB server options
@@ -56,13 +58,13 @@ docker run --name some-mariadb \
 docker run --name some-mariadb \
   -e MARIADB_ROOT_PASSWORD=my-secret-pw \
   -e MARIADB_OPTIONS="--max-connections=50 --thread-cache-size=16" \
-  -d dhi.io/mariadb:<tag>
+  -d mariadb:<tag>
 ```
 - Alternatively, pass options directly on the command line after mariadbd:
 ```bash
 docker run --name some-mariadb \
   -e MARIADB_ROOT_PASSWORD=my-secret-pw \
-  -d dhi.io/mariadb:<tag> mariadbd --max-connections=50
+  -d mariadb:<tag> mariadbd --max-connections=50
 ```
 ---
 ## Using a custom MariaDB configuration file
@@ -70,11 +72,11 @@ docker run --name some-mariadb \
 docker run --name some-mariadb \
   -v /my/custom:/etc/mysql/conf.d:ro \
   -e MARIADB_ROOT_PASSWORD=my-secret-pw \
-  -d dhi.io/mariadb:<tag>
+  -d mariadb:<tag>
 ```
 - Configuration without a cnf file
 ```bash
-docker run --name some-mariadb -e MARIADB_ROOT_PASSWORD=my-secret-pw -d dhi.io/mariadb:<tag> mariadbd --port 3808
+docker run --name some-mariadb -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb:<tag> mariadbd --port 3808
 ```
 ---
 ## Data persistence
@@ -82,7 +84,7 @@ docker run --name some-mariadb -e MARIADB_ROOT_PASSWORD=my-secret-pw -d dhi.io/m
 docker run --name some-mariadb \
   -e MARIADB_ROOT_PASSWORD=my-secret-pw \
   -v mariadb-data:/var/lib/mysql \
-  -d dhi.io/mariadb:<tag>
+  -d mariadb:<tag>
 ```
 - Creating database dumps
 ```bash
