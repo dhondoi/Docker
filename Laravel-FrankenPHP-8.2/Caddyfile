@@ -53,6 +53,9 @@
 	@static path *.jpg *.jpeg *.png *.gif *.ico *.css *.js *.eot *.ttf *.woff *.woff2 *.svg
 	header @static Cache-Control "public, max-age=31536000, no-transform"
 
+	# Melayani file fisik jika ada (CSS, JS, Gambar di storage/public)
+	file_server
+
 	# Engine FrankenPHP
 	php_server
 }
