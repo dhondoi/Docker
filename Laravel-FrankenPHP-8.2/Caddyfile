@@ -1,9 +1,4 @@
 {
-	frankenphp {
-        # Jalankan 2 atau 4 worker ke script manual Laravel 8
-        worker /app/public/frankenphp-worker.php 2
-    }
-	# Global Options: Menangkap IP asli dari Cloudflare
 	servers {
 		trusted_proxies static private_ranges
 		client_ip_headers CF-Connecting-IP
@@ -57,5 +52,8 @@
 	file_server
 
 	# Engine FrankenPHP
-	php_server
+	php_server{
+        # Jalankan 2 atau 4 worker ke script manual Laravel 8
+        worker /app/public/frankenphp-worker.php 2
+    }
 }
