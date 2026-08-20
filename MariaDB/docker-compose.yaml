@@ -1,6 +1,6 @@
 services:
   db:
-    image: dhi.io/mariadb:12
+    image: mariadb:12
     restart: always
     secrets:
       - mariadb_password
