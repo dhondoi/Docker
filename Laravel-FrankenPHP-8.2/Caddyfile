@@ -1,0 +1,66 @@
+{
+	# Global Options: Menerima IP Asli dari Cloudflare via localhost
+	# trusted_proxies static 127.0.0.1 ::1 {
+	trusted_proxies static private_ranges {
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
+# http://domainanda.com:80, http://www.domainanda.com:80 {
+:80 {
+	# Hanya mendengarkan pada interface localhost
+	bind 127.0.0.1 ::1
+
+	# Restriksi Akses: Hanya izinkan localhost (sama seperti allow 127.0.0.1/::1; deny all;)
+	# @not_local not remote_ip 127.0.0.1 ::1
+	# error @not_local 403
+
+	# Root folder Laravel
+	root * /app/public
+
+	# Batas ukuran upload (client_max_body_size 10M)
+	request_body {
+		max_size 10MB
+	}
+
+	# Optimasi Kompresi (Gzip & Zstd)
+	encode gzip zstd
+
+	# Security Headers & Sembunyikan Header Identitas Server/PHP
+	header {
+		X-Frame-Options "SAMEORIGIN"
+		X-Content-Type-Options "nosniff"
+		X-XSS-Protection "1; mode=block"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		Referrer-Policy "no-referrer-when-downgrade"
+		Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'"
+		-X-Powered-By
+		-Server
+	}
+
+	# Restriksi HTTP Method (limit_except)
+	@invalid_method not method GET POST HEAD PUT PATCH DELETE OPTIONS
+	error @invalid_method 405
+
+	# Hardening: Blokir eksekusi PHP di folder storage Laravel
+	@php_in_storage path /storage/*.php
+	error @php_in_storage 403
+
+	# Hardening: Blokir akses ke file/folder tersembunyi (.env, .git, dll)
+	@dotfiles {
+		path /.*
+		not path /.well-known/*
+	}
+	error @dotfiles 403
+
+	# Optimasi Browser Caching untuk Aset Statis
+	@static path_regexp static \.(jpg|jpeg|png|gif|ico|css|js|eot|ttf|woff|woff2|svg)$
+	header @static Cache-Control "public, max-age=31536000, no-transform"
+
+	# Penanganan Utama Laravel & PHP-FPM
+	# Direktif php_fastcgi di Caddy secara otomatis menangani routing try_files ($uri $uri/ /index.php)
+	php_fastcgi unix//var/run/php/php8.2-fpm.sock
+
+	# Melayani file statis (CSS, JS, Gambar)
+	file_server
+}
