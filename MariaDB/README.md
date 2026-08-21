@@ -125,12 +125,63 @@ docker run --name some-mariadb \
   -v mariadb-data:/var/lib/mysql \
   -d mariadb:<tag>
 ```
-- Creating database dumps
+## Creating database dumps
+- simpan dalam container
 ```bash
  docker exec mariadb sh -c 'mkdir -p backup && mariadb-dump --databases namadb -u root -p"$MARIADB_ROOT_PASSWORD" > backup/db.sql'
+```
+- di luar container (server)
+```bash
+docker exec nama_container sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --databases nama_database --single-transaction --quick' | gzip > backup/mariadb_$(date +%Y%m%d_%H%M%S).sql.gz
+```
+- cold volume
+```bash
+# 1. Hentikan container
+docker stop mariadb_container
+
+# 2. Archiving data dari named volume (misal: mariadb_data) ke host
+docker run --rm \
+  -v mariadb_data:/from:ro \
+  -v /path/to/backups:/to \
+  alpine tar -czf /to/volume_backup_$(date +%Y%m%d).tar.gz -C /from .
+
+# 3. Jalankan kembali container
+docker start mariadb_container
+```
+- cronjob
+  - buat `sh`
+```sh
+#!/bin/bash
+
+# Konfigurasi
+CONTAINER_NAME="my_mariadb"
+DB_USER="root"
+DB_PASS="PasswordRahasia"
+BACKUP_DIR="/var/backups/mariadb"
+RETENTION_DAYS=7
+DATE=$(date +%Y%m%d_%H%M%S)
+
+# Buat direktori jika belum ada
+mkdir -p $BACKUP_DIR
+
+# Jalankan dump dan kompresi
+docker exec -i $CONTAINER_NAME mariadb-dump -u $DB_USER -p"$DB_PASS" --all-databases | gzip > $BACKUP_DIR/mariadb_backup_$DATE.sql.gz
+
+# Hapus backup yang lebih tua dari X hari
+find $BACKUP_DIR -type f -name "*.sql.gz" -mtime +$RETENTION_DAYS -delete
+```
+  - masukkan cronjob
+```bash
+# buka crontab
+crontab -e
+# isi
+0 1 * * * /opt/backup_mariadb.sh > /dev/null 2>&1
 ```
 - Restoring from dumps
 ```bash
 docker exec mariadb sh -c 'mariadb -u root -p"$MARIADB_ROOT_PASSWORD" < backup/db.sql'
+```
+```bash
+gunzip < /path/ke/file_backup.sql.gz | docker exec -i my_mariadb sh -c 'mariadb -u root -p"$MARIADB_ROOT_PASSWORD" <nama_db>'
 ```
 ---
