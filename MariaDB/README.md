@@ -3,6 +3,10 @@
 # CHEATSHEET DOCKER MARIADB
 ## BEST PRACTICE
 ### docker run
+- alangkah baiknya mod dulu file rahasia
+```bash
+chmod 600 mariadb_password
+```
 - buat network dulu
 ```bash
 docker network create app-network
