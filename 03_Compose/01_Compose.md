@@ -1,4 +1,4 @@
-# INSTALL
+# INSTALL 
 ```bash
 curl -SL https://github.com/docker/compose/releases/download/v5.5.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 ```
@@ -9,6 +9,10 @@ chmod +x /usr/local/bin/docker-compose
 check path if `docker-compose` fails, check path and create sybolic link
 ```bash
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+- alternatif install
+```bash
+sudo apt-get install docker-compose-plugin
 ```
 # Yaml
 - Yaml adalah sebuah jenis file yang biasa digunakan untuk menyimpan konfigurasi
