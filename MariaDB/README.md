@@ -3,6 +3,10 @@
 # CHEATSHEET DOCKER MARIADB
 ## BEST PRACTICE
 ### docker run
+- buat network dulu
+```bash
+docker network create app-network
+```
 ```bash
 docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/.env:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
 ```
