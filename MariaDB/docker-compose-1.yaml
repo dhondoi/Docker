@@ -2,15 +2,17 @@ services:
   db:
     image: mariadb:12
     container_name: mariadb
-    restart: always
-    secrets:
-      - mariadb_password
-    environment:
-      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_password
+    restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql
     networks:
       - mariadb-network
+    #ports:
+    #  -  "3306:3306"
+    secrets:
+      - mariadb_password
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_password
 
 networks:
   mariadb-network:
