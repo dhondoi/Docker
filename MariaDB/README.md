@@ -10,7 +10,6 @@ docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWO
 ```bash
 docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE={$MYSQL_ROOT_PASSWORD:-MariadDB12345} -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
 ```
-- 
 ## RUN
 ```bash
 docker run --name maria-db -e MARIADB_ROOT_PASSWORD=12345 -d mariadb:12
