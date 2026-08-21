@@ -12,7 +12,7 @@ docker run -d --name mariadb --network app-network -p 3306:3306 -v $(pwd)/mariad
 ```
 - klo make `.env`
 ```bash
-docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOTPASSWORD:-12345} -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOT_PASSWORD:-12345} -v mariadb-data:/var/lib/mysql:Z mariadb:12
 ```
 ### docker compose
 ```yaml
