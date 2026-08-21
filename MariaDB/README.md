@@ -127,10 +127,10 @@ docker run --name some-mariadb \
 ```
 - Creating database dumps
 ```bash
-docker exec some-mariadb mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" --all-databases > backup.sql
+docker exec some-mariadb mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --all-databases > backup.sql
 ```
 - Restoring from dumps
 ```bash
-docker exec -i some-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" < backup.sql
+docker exec -i some-mariadb mariadb -u root -p"$MARIADB_ROOT_PASSWORD" < backup.sql
 ```
 ---
