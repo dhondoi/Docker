@@ -4,8 +4,12 @@
 ## BEST PRACTICE
 - docker run
 ```bash
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/mariadb-password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql -p 3306:3306 -d mariadb:12
+docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/mariadb-password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
+
+# kalau file .env
+docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE={$MYSQL_ROOT_PASSWORD:-MariadDB12345} -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
 ```
+- 
 ## RUN
 ```bash
 docker run --name maria-db -e MARIADB_ROOT_PASSWORD=12345 -d mariadb:12
