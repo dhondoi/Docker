@@ -8,7 +8,11 @@
 docker network create app-network
 ```
 ```bash
-docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network app-network -p 3306:3306 -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password mariadb:12
+```
+- klo make `.env`
+```bash
+docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOTPASSWORD:-12345} -v mariadb-data:/var/lib/mysql:Z mariadb:12
 ```
 ### docker compose
 ```yaml
