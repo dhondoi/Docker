@@ -126,15 +126,15 @@ docker run --name some-mariadb \
   -d mariadb:<tag>
 ```
 ## Creating database dumps
-- simpan dalam container
+- **Cara 1: simpan dalam container**
 ```bash
  docker exec mariadb sh -c 'mkdir -p backup && mariadb-dump --databases namadb -u root -p"$MARIADB_ROOT_PASSWORD" > backup/db.sql'
 ```
-- di luar container (server)
+- **Cara 2 : di luar container (server)**
 ```bash
 docker exec nama_container sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --databases nama_database --single-transaction --quick' | gzip > backup/mariadb_$(date +%Y%m%d_%H%M%S).sql.gz
 ```
-- cold volume
+- **Cara 3 : cold volume**
 ```bash
 # 1. Hentikan container
 docker stop mariadb_container
@@ -148,7 +148,7 @@ docker run --rm \
 # 3. Jalankan kembali container
 docker start mariadb_container
 ```
-- cronjob
+- **Cara 4 : cronjob**
   - buat `sh`
 ```sh
 #!/bin/bash
@@ -177,7 +177,7 @@ chmod +x backup-mariadb.sh
 ```bash
 grep CRON /var/log/syslog | tail -n 20
 ```
-- Restoring from dumps
+## Restoring from dumps
 ```bash
 docker exec mariadb sh -c 'mariadb -u root -p"$MARIADB_ROOT_PASSWORD" < backup/db.sql'
 ```
