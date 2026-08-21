@@ -14,7 +14,7 @@ MYSQL_ROOT_PASSWORD=passwordkamu
 ```
 - selesai, tinggal run sesuaikan configurasi
 ```bash
-docker run -d --name mariadb --network mariadb-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOT_PASSWORD:-passwordkamu} -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network mariadb-network -p 3306:3306 --env-file .env -v mariadb-data:/var/lib/mysql:Z mariadb:12
 ```
 
 ### NOTE : chmod 600 file_rahasia
