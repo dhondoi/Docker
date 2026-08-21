@@ -12,11 +12,11 @@ chmod 600 mariadb_password
 docker network create app-network
 ```
 ```bash
-docker run -d --name mariadb --network app-network -p 3306:3306 -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network app-network -p 3306:3306 -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v mariadb-data:/var/lib/mysql:z mariadb:12
 ```
 - klo make `.env`
 ```bash
-docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOT_PASSWORD:-12345} -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD={$MYSQL_ROOT_PASSWORD:-12345} -v mariadb-data:/var/lib/mysql:z mariadb:12
 ```
 ### docker compose
 ```yaml
@@ -30,7 +30,7 @@ services:
     #ports:
     #  -  "3306:3306"
     volumes:
-      - mariadb-data:/var/lib/mysql:Z
+      - mariadb-data:/var/lib/mysql:z
     networks:
       - mariadb-network
 
@@ -149,25 +149,36 @@ docker run --rm \
 docker start mariadb_container
 ```
 - **Cara 4 : cronjob**
-  - buat `sh`
+  - buat `backup-mariadb.sh`
 ```sh
 #!/bin/bash
 
 # Buat direktori jika belum ada
-mkdir -p backup
+mkdir -p $HOME/MariaDB/data-warga/backup
+
+docker stop mariadb
 
 # Jalankan dump dan kompresi
-docker exec nama_container sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --databases nama_database --single-transaction --quick' | gzip > backup/mariadb_$(date +%Y%m%d_%H%M%S).sql.gz
+docker run -d --name mariadb-backup --env-file $HOME/MariaDB/.env -v mariadb-data:/var/lib/mysql:z >
+echo "Menunggu MariaDB siap..."
+until docker exec mariadb-backup mariadb-admin ping -h localhost --silent; do
+    sleep 2
+done
+echo "MariaDB siap digunakan!"
+docker exec mariadb-backup sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --databases data_>
+docker rm -f mariadb-backup
+
+docker start mariadb
 
 # Hapus backup yang lebih tua dari X hari
-find backup -type f -name "*.sql.gz" -mtime +7 -delete
+find $HOME/MariaDB/data-warga/backup -type f -name "*.sql.gz" -mtime +7 -delete
 ```
   - masukkan cronjob
 ```bash
 # buka crontab
 crontab -e
 # isi
-0 1 * * * backup-mariadb.sh > /dev/null 2>&1
+0 0 1 * * $HOME/MariaDB/data-warga/backup-mariadb.sh > $HOME/MariaDB/data-warga/backup-mariadb.log 2>&1
 ```
   - ubah agar bisa dieksekusi
 ```bash
