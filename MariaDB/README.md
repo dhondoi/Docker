@@ -12,7 +12,7 @@ docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWO
 ```
 - kalau file .env
 ```bash
-docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE={$MYSQL_ROOT_PASSWORD:-MariadDB12345} -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
+docker run --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE={$MYSQL_ROOT_PASSWORD:-12345} -v mariadb-data:/var/lib/mysql:Z -d mariadb:12
 ```
 ## RUN
 ```bash
