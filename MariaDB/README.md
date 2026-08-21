@@ -8,7 +8,29 @@
 docker network create app-network
 ```
 ```bash
-docker run -d --name mariadb --network orangepi -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z mariadb:12
+docker run -d --name mariadb --network app-network -p 3306:3306 -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v $(pwd)/mariadb_password:/run/secrets/mariadb_password:ro -v mariadb-data:/var/lib/mysql:Z mariadb:12
+```
+### docker compose
+```yaml
+services:
+  db-maria:
+    image: mariadb:12
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: {$MYSQL_ROOT_PASSWORD:-12345}
+    #ports:
+    #  -  "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql:Z
+    networks:
+      - mariadb-network
+
+volumes:
+  mariadb-data:
+
+networks:
+  mariadb-network:
 ```
 ## RUN
 ```bash
