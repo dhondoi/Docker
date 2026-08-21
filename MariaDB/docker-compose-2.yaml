@@ -3,17 +3,18 @@ services:
     image: mariadb:12
     container_name: mariadb
     restart: unless-stopped
-    environment:
-      MARIADB_ROOT_PASSWORD: {$MYSQL_ROOT_PASSWORD:-12345}
-    #ports:
-    #  -  "3306:3306"
     volumes:
       - mariadb-data:/var/lib/mysql:Z
     networks:
       - mariadb-network
-
+    #ports:
+    #  -  "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: {$MYSQL_ROOT_PASSWORD:-12345}
+    
 volumes:
   mariadb-data:
 
 networks:
   mariadb-network:
+    #external: true
