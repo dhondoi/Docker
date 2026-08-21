@@ -6,11 +6,17 @@ services:
       - mariadb_password
     environment:
       MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_password
-      # MARIADB_ROOT_PASSWORD: secret
     volumes:
       - mariadb-data:/var/lib/mysql
+    networks:
+      - mariadb-network
+
+networks:
+  mariadb-network:
+
 volumes:
   mariadb-data:
+
 secrets:
   mariadb_password:
     file: ./mariadb-password.txt
