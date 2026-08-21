@@ -153,29 +153,29 @@ docker start mariadb_container
 ```sh
 #!/bin/bash
 
-# Konfigurasi
-CONTAINER_NAME="my_mariadb"
-DB_USER="root"
-DB_PASS="PasswordRahasia"
-BACKUP_DIR="/var/backups/mariadb"
-RETENTION_DAYS=7
-DATE=$(date +%Y%m%d_%H%M%S)
-
 # Buat direktori jika belum ada
-mkdir -p $BACKUP_DIR
+mkdir -p backup
 
 # Jalankan dump dan kompresi
-docker exec -i $CONTAINER_NAME mariadb-dump -u $DB_USER -p"$DB_PASS" --all-databases | gzip > $BACKUP_DIR/mariadb_backup_$DATE.sql.gz
+docker exec nama_container sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" --databases nama_database --single-transaction --quick' | gzip > backup/mariadb_$(date +%Y%m%d_%H%M%S).sql.gz
 
 # Hapus backup yang lebih tua dari X hari
-find $BACKUP_DIR -type f -name "*.sql.gz" -mtime +$RETENTION_DAYS -delete
+find backup -type f -name "*.sql.gz" -mtime +7 -delete
 ```
   - masukkan cronjob
 ```bash
 # buka crontab
 crontab -e
 # isi
-0 1 * * * /opt/backup_mariadb.sh > /dev/null 2>&1
+0 1 * * * backup-mariadb.sh > /dev/null 2>&1
+```
+  - ubah agar bisa dieksekusi
+```bash
+chmod +x backup-mariadb.sh
+```
+  - cek apakah log
+```bash
+grep CRON /var/log/syslog | tail -n 20
 ```
 - Restoring from dumps
 ```bash
