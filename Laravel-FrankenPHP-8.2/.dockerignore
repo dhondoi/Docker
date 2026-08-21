@@ -1,0 +1,43 @@
+# Git & Version Control
+.git
+.gitignore
+.gitattributes
+
+# Environment & File Sensitif
+.env
+.env.*
+*.pem
+*.key
+
+# Dependensi Lokal
+/vendor
+/node_modules
+
+# Storage, Log, & Cache Lokal
+/storage/logs/*
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+!/storage/logs/.gitignore
+!/storage/framework/cache/data/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+
+# File Docker & Orchestration
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# IDE & System Trash
+.idea
+.vscode
+*.swp
+.DS_Store
+Thumbs.db
+
+# Testing & Log Build
+/tests
+phpunit.xml
+npm-debug.log
+yarn-error.log
+README.md
