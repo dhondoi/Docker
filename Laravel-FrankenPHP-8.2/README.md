@@ -149,7 +149,7 @@ README.md
 docker build -t <nama_image>[:<tag>] .
 
 #atau
-docker buildx build --platform linux/amd64,linux/arm64 -t <nama_image>[:<tag>] . 
+docker build --platform linux/amd64,linux/arm64 -t <nama_image>[:<tag>] . 
 ```
 ## DISTRIBUSI DOCKER IMAGE
 ```bash
