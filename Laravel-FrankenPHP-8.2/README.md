@@ -151,10 +151,32 @@ docker build -t <nama_image>[:<tag>] .
 ## DISTRIBUSI DOCKER IMAGE
 ```bash
 # Save langsung di-kompres ke format .tar.gz
-docker save nama_repository:tag | gzip > nama_image.tar.gz
+docker save <nama_image>[:<tag>] | gzip > <nama_image>.tar.gz
 
-# Cara load file .tar.gz
-docker load -i nama_image.tar.gz
+# Transfer File ke Server
+
+# Load Image Baru:
+# (Docker akan merebut tag nama_repository:tag ke image baru ini, sedangkan image lama akan menjadi <none>:<none>)
+docker load -i <nama_image>.tar.gz
+
+#Hentikan & Hapus Container Lama yang Masih Berjalan:
+docker container rm -f <nama_container>
+
+# Jalankan Container Baru dari Image Terbaru (RUN section)
+
+# Pembersihan Cache Laravel (Pasca-Deployment)
+# Setelah container baru berjalan, bersihkan cache internal bawaan Laravel agar kode baru langsung terasa:
+docker exec -it nama_container php artisan migrate --force
+docker exec -it nama_container php artisan config:clear
+docker exec -it nama_container php artisan route:clear
+docker exec -it nama_container php artisan view:clear
+
+# Pembersihan File & Image Sampah (Cleanup)
+# Karena Anda tidak pernah mengganti tag, sisa-sisa image lama akan menumpuk menjadi dangling image (<none>:<none>). Jalankan ini untuk menghemat disk server:
+# Hapus image lama yang kehilangan tag
+docker image prune -f
+# Hapus file tar.gz agar tidak memenuh-nenuhi disk
+rm nama_image.tar.gz
 ```
 ## RUN
 - `--env-file` Mode
