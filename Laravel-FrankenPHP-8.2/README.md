@@ -161,7 +161,7 @@ docker run -d --name <nama_container> --network <nama_network> -p 81:80 -v $PWD/
 1. Jika error tambahkan `MSYS_NO_PATHCONV=1` sebelum `docker run`
 2. exec
 ```bash
-docker container -it <nama_container> /bin/bash
+docker exec -it <nama_container> /bin/ash
 ```
 3. masukkan secara langsung atau satu-persatu
 ```bash
