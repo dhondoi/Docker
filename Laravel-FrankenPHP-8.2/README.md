@@ -146,7 +146,7 @@ README.md
 ```
 ## BUILD IMAGE DARI DOCKERFILE
 ```bash
-docker build --platform linux/amd64 -t <nama_image>[:<tag>] .
+docker build -t <nama_image>[:<tag>] .
 ```
 ## DISTRIBUSI DOCKER IMAGE
 ```bash
