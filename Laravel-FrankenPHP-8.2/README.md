@@ -147,6 +147,9 @@ README.md
 ## BUILD IMAGE DARI DOCKERFILE
 ```bash
 docker build -t <nama_image>[:<tag>] .
+
+#atau
+docker buildx build --platform linux/amd64,linux/arm64 -t <nama_image>[:<tag>] . 
 ```
 ## DISTRIBUSI DOCKER IMAGE
 ```bash
@@ -181,11 +184,11 @@ rm nama_image.tar.gz
 ## RUN
 - `--env-file` Mode
 ```bash
-docker run -d --name <nama_container> --network <nama_network> -p 81:80 --env-file .env -v $PWD/Caddyfile:/etc/frankenphp/Caddyfile <nama_image>[:<tag>]
+docker run -d --name <nama_container> --network <nama_network> -p 81:80 --env-file .env -v $PWD/Caddyfile:/etc/frankenphp/Caddyfile --restart unless-stopped <nama_image>[:<tag>]
 ```
 - atau `.env` Mounting Mode
 ```bash
-docker run -d --name <nama_container> --network <nama_network> -p 81:80 -v $PWD/.env:/app/.env -v $PWD/Caddyfile:/etc/frankenphp/Caddyfile <nama_image>[:<tag>]
+docker run -d --name <nama_container> --network <nama_network> -p 81:80 -v $PWD/.env:/app/.env -v $PWD/Caddyfile:/etc/frankenphp/Caddyfile --restart unless-stopped <nama_image>[:<tag>]
 ```
 - Tambahan
 1. Jika error tambahkan `MSYS_NO_PATHCONV=1` sebelum `docker run`
