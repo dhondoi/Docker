@@ -22,7 +22,7 @@ docker network create <nama_network>
 ```
 - jalankan. `Note : untuk -p 3306:3306 tidak wajib`
 ```bash
-docker run -d --name <nama_container> --network <nama_network> -p 3306:3306 -v <nama_file_pw>:/run/secrets/mariadb_password:ro -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v <nama_volume>:/var/lib/mysql:z mariadb:12
+docker run -d --name <nama_container> --network <nama_network> -p 3306:3306 -v <nama_file_pw>:/run/secrets/mariadb_password:ro -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mariadb_password -v <nama_volume>:/var/lib/mysql:z --restart unless-stopped mariadb:12
 ```
 4. Jika menggunakan `.env` :
 - Buat file (`nano .env`) dan ubah permission 600 (`chmod 600 .env`) isi file dengan password kamu
@@ -31,7 +31,7 @@ MARIADB_ROOT_PASSWORD=<isi_password>
 ```
 - jalankan. `Note : untuk -p 3306:3306 tidak wajib`
 ```bash
-docker run -d --name <nama_container> --network <nama_network> -p 3306:3306 --env-file .env -v <nama_volume>:/var/lib/mysql:z mariadb:12
+docker run -d --name <nama_container> --network <nama_network> -p 3306:3306 --env-file .env -v <nama_volume>:/var/lib/mysql:z --restart unless-stopped mariadb:12
 ```
 ## COMPOSE
 1. Jika menggunakan `password file` :
