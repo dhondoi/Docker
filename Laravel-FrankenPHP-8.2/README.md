@@ -148,6 +148,14 @@ README.md
 ```bash
 docker build -t <nama_image>[:<tag>] .
 ```
+## DISTRIBUSI DOCKER IMAGE
+```bash
+# Save langsung di-kompres ke format .tar.gz
+docker save nama_repository:tag | gzip > nama_image.tar.gz
+
+# Cara load file .tar.gz
+docker load -i nama_image.tar.gz
+```
 ## RUN
 - `--env-file` Mode
 ```bash
