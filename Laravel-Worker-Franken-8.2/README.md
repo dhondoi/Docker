@@ -219,3 +219,20 @@ for ($nbRequests = 0; $nbRequests < $maxRequests; $nbRequests++) {
     }
 }
 ```
+# RUN
+```bash
+docker run -d --name test-worker-app -p 8000:8000 -v $PWD/.env:/app/.env -v $PWD/Caddyfile:/etc/caddy/Caddyfile test-worker:8.2
+```
+# TESTING ROUTE
+```php
+Route::get('/cek-worker', function () {
+    static $requestCount = 0;
+    $requestCount++;
+
+    return response()->json([
+        'worker_mode' => app()->bound('octane'),
+        'request_count' => $requestCount,
+        'process_id' => getmypid(),
+    ]);
+});
+```
