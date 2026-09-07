@@ -166,6 +166,84 @@ docker image prune -f
 rm <nama_image>.tar.gz
 ```
 
+## CADDYFILE
+
+```Caddyfile
+{
+    # Matikan telemetry Caddy
+	admin off
+	# Konfigurasi Global FrankenPHP
+	frankenphp
+	order php_server before file_server
+	servers {
+		trusted_proxies static private_ranges
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
+:80 {
+	# Root folder Laravel
+	root * /app/public
+
+	# Batas ukuran upload
+	request_body {
+		max_size 10MB
+	}
+
+	# Optimasi Kompresi
+	encode gzip zstd
+
+    @blocked path_regexp blocked \.(env|git|htaccess|yml|yaml|json|lock|md|log)$
+	respond @blocked 403
+
+	# Security Headers
+	header {
+		# Mencegah site di-frame oleh situs lain (Anti-Clickjacking)
+		X-Frame-Options "DENY"
+		# Mencegah browser menebak-nebak tipe MIME (Anti-MIME Sniffing)
+		X-Content-Type-Options "nosniff"
+		# Proteksi XSS pada browser lama
+		X-XSS-Protection "1; mode=block"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		# Mengontrol informasi referrer yang dikirim
+		Referrer-Policy "strict-origin-when-cross-origin"
+        # Membatasi akses fitur perangkat keras browser
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'"
+		-X-Powered-By
+		-Server
+	}
+
+	# Restriksi HTTP Method
+	@invalid_method not method GET POST HEAD PUT PATCH DELETE OPTIONS
+	respond @invalid_method 405
+
+	# Hardening: Pemblokiran PHP di subfolder storage secara rekursif
+	@php_in_storage path_regexp storage_php ^/storage/.*\.php$
+	respond @php_in_storage 403
+
+	# Hardening: Pemblokiran file tersembunyi (.env, .git)
+	@dotfiles {
+		path /.*
+		not path /.well-known/*
+	}
+	respond @dotfiles 403
+
+	# Caching Aset Statis
+	@static path *.jpg *.jpeg *.png *.gif *.ico *.css *.js *.eot *.ttf *.woff *.woff2 *.svg
+	header @static Cache-Control "public, max-age=31536000, no-transform"
+
+	# Menjalankan worker PHP dan hanya mengeksekusi index.php
+	php_server {
+		# Fitur Worker Mode FrankenPHP untuk Laravel (Sangat Cepat)
+		# worker /app/public/index.php
+	}
+
+    # Melayani file fisik jika ada (CSS, JS, Gambar di storage/public)
+	file_server
+}
+```
+
 ## DOCKER RUN
 
 ```cmd
