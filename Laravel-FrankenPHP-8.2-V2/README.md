@@ -326,3 +326,24 @@ volumes:
 ```cmd
 docker compose up -d
 ```
+
+## TAMBAHAN
+
+- akses dalam container
+
+```cmd
+docker exec -it <nama_container> /bin/ash
+```
+
+- optimize
+```cmd
+masukkan secara langsung atau satu-persatu
+php artisan key:generate
+php artisan optimize:clear
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
+php artisan optimize
+php artisan migrate --seed
+```
