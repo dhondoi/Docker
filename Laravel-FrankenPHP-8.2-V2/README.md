@@ -49,8 +49,6 @@ RUN echo "expose_php = Off" >> "$PHP_INI_DIR/conf.d/security.ini" && \
 
 # Konfigurasi Environment Produksi
 ENV SERVER_NAME=":8080" \
-    APP_ENV=production \
-    APP_DEBUG=false \
     PHP_INI_SCAN_DIR="/usr/local/etc/php/conf.d"
 
 # Buat direktori kerja penyimpanan dan batasi hak akses tulis hanya pada folder ini
@@ -274,10 +272,13 @@ services:
 
     # Alokasi direktori sementara di RAM (tmpfs) untuk OS
     tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m
-      - /var/tmp:rw,noexec,nosuid
+      - /tmp:rw,exec,nosuid,size=64m
+      - /var/tmp:rw,exec,nosuid
+      - /app/storage/framework/views:rw,exec,mode=777
+      - /app/storage/framework/cache:rw,exec,mode=777
+      - /app/storage/framework/sessions:rw,exec,mode=777
+      - /app/bootstrap/cache:rw,exec,mode=777
 
-    # Alokasi direktori sementara di RAM (tmpfs) khusus untuk Cache/Session Laravel
     volumes:
       # Persistent Volume untuk simpan berkas log Laravel
       - <nama_volume>:/app/storage/logs
@@ -287,24 +288,6 @@ services:
       
       # Mount Caddyfile kustom secara eksternal (Read-Write)
       - ./Caddyfile:/etc/caddy/Caddyfile:rw
-
-      # Tmpfs Mounts untuk folder cache/session Laravel agar aplikasi tetap bisa menulis
-      - type: tmpfs
-        target: /app/storage/framework/views
-        tmpfs:
-          mode: 777
-      - type: tmpfs
-        target: /app/storage/framework/cache
-        tmpfs:
-          mode: 777
-      - type: tmpfs
-        target: /app/storage/framework/sessions
-        tmpfs:
-          mode: 777
-      - type: tmpfs
-        target: /app/bootstrap/cache
-        tmpfs:
-          mode: 777
 
     # Menyuntikkan variabel lingkungan dari berkas .env lokal
     # env_file:
