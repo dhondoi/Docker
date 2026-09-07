@@ -181,7 +181,7 @@ rm <nama_image>.tar.gz
 	}
 }
 
-:80 {
+:8080 {
 	# Root folder Laravel
 	root * /app/public
 
