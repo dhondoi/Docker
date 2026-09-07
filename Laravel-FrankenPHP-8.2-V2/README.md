@@ -169,7 +169,7 @@ rm <nama_image>.tar.gz
 ```Caddyfile
 {
     # Matikan telemetry Caddy
-	admin off
+	admin 0.0.0.0:2019
 	# Konfigurasi Global FrankenPHP
 	frankenphp
 	order php_server before file_server
