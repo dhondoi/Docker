@@ -2,7 +2,7 @@
 
 ```Dockerfile
 # Gunakan image resmi Nginx yang ringan (Alpine Linux)
-FROM nginx:latest-slim
+FROM nginx:latest-alpine-slim
 
 # Hapus berkas bawaan Nginx
 RUN rm -rf /usr/share/nginx/html/*
