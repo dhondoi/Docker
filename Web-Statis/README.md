@@ -58,54 +58,33 @@ services:
 # DEFAULT.CONF
 
 ```conf
-limit_req_zone $binary_remote_addr zone=one:10m rate=10r/m;
+# Zona Rate Limiting (20 request/detik)
+limit_req_zone $binary_remote_addr zone=one:10m rate=20r/s;
+
+# Sembunyikan versi Nginx untuk keamanan
 server_tokens off;
 
 server {
-    listen       80;
-    listen  [::]:80;
-    server_name <DOMAIN_KAMU>;
+    listen      80;
+    listen      [::]:80;
+    
+    # Perbaikan: Hanya sertakan nama domain saja
+    server_name <nama_domain>;
 
-    limit_req zone=one burst=20 nodelay;
+    # Sembunyikan header X-Powered-By
     fastcgi_hide_header X-Powered-By;
 
-    #access_log  /var/log/nginx/host.access.log  main;
-
     location / {
+        limit_req zone=one burst=30 nodelay;
+        limit_req_status 429;
         root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
 
-    #error_page  404              /404.html;
-
-    # redirect server error pages to the static page /50x.html
-    #
+    # Halaman error 50x
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
         root   /usr/share/nginx/html;
     }
-
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
 }
 ```
