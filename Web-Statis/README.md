@@ -66,7 +66,7 @@ server {
     listen  [::]:80;
     server_name <DOMAIN_KAMU>;
 
-    limit_req zone=one burst=20 nodelay
+    limit_req zone=one burst=20 nodelay;
     fastcgi_hide_header X-Powered-By;
 
     #access_log  /var/log/nginx/host.access.log  main;
